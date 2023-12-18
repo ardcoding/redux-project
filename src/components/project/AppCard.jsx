@@ -11,7 +11,7 @@ import { Link } from "react-router-dom"
 // import { useDispatch, useSelector } from "react-redux"
 const options = ["Edit", "Sil"]
 const ITEM_HEIGHT = 48
-export default function AppCard({ title, details, saha }) {
+export default function AppCard({ title, details, saha, id }) {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -28,7 +28,7 @@ export default function AppCard({ title, details, saha }) {
   // console.log(tasks)
   return (
     <div className='flex items-center p-5 flex-wrap'>
-      <Link to='/'>
+      <Link to={`/project/${id}`}>
         <div className='flex items-center flex-col w-[300px] h-60 bg-slate-200 mx-5 border rounded-xl mb-4 '>
           <div className=' flex items-center justify-center relative top-2 left-32 border rounded-full w-6 h-6 cursor-pointer'>
             <IconButton

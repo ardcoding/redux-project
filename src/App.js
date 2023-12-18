@@ -4,6 +4,7 @@ import Project from "./pages/Project"
 import Sidebar from "./components/Sidebar"
 import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
+import SingleTask from "./pages/SingleTask"
 
 function App() {
   const Layout = () => {
@@ -31,6 +32,12 @@ function App() {
         {
           path: "/project",
           element: <Project />,
+          children: [
+            {
+              path: "/project/:id",
+              element: <SingleTask />,
+            },
+          ],
         },
       ],
     },
