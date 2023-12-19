@@ -1,5 +1,5 @@
 // import React, { useEffect } from "react"
-import CustomizedProgressBars from "../../utils/ProgressBar"
+import CustomizedProgressBars from "../ProgressBar"
 import Tooltip from "@mui/material/Tooltip"
 import IconButton from "@mui/material/IconButton"
 import Menu from "@mui/material/Menu"
