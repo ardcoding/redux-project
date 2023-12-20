@@ -14,9 +14,11 @@ export default function Project() {
   return (
     <div>
       <AppHeader />
-      <div>
+      <AppCard />
+
+      {/* <div>
         {tasks && tasks.map((item, i) => <AppCard key={i} {...item} />)}
-      </div>
+      </div> */}
     </div>
   )
 }

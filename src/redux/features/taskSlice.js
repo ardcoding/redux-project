@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createTask, getTask, getTasks } from "./taskAction"
+import { createTask, deleteTask, getTask, getTasks } from "./taskAction"
 
 const taskSlice = createSlice({
   name: "task",
   initialState: {
     task: {},
     tasks: [],
-    userTasks: [],
     loading: false,
     error: null,
   },
@@ -41,6 +40,17 @@ const taskSlice = createSlice({
       state.tasks = action.payload
     })
     builder.addCase(getTask.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    builder.addCase(deleteTask.pending, (state, action) => {
+      state.loading = true
+    })
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    builder.addCase(deleteTask.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload
     })
