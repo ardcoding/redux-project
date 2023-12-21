@@ -10,7 +10,15 @@ import { Link } from "react-router-dom"
 import { deleteTask } from "../../redux/features/taskAction"
 import AddEditTask from "./AddEditTask"
 import { useDispatch } from "react-redux"
-export default function AppCard({ title, details, saha, id, item }) {
+export default function AppCard({
+  projectName,
+  description,
+  fieldManager,
+  id,
+  item,
+  startTime,
+  endTime,
+}) {
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
   const [openEdit, setOpenEdit] = useState(false)
@@ -33,7 +41,7 @@ export default function AppCard({ title, details, saha, id, item }) {
   }
 
   return (
-    <div className='flex items-center p-5 flex-wrap'>
+    <div className='flex items-center flex-wrap'>
       {openEdit ? <AddEditTask open={openEdit} setOpen={setOpenEdit} /> : ""}
       <div className='relative bottom-28 left-72 cursor-pointer'>
         <Button
@@ -60,7 +68,7 @@ export default function AppCard({ title, details, saha, id, item }) {
         </Menu>
       </div>
       <Link to={`/project/${id}`}>
-        <div className='flex items-center flex-col w-[300px] h-60 bg-slate-200 mx-5 border rounded-xl mb-4 '>
+        <div className='flex items-center flex-col w-[300px] h-60 bg-slate-200 border rounded-xl mb-4 '>
           <div className='flex items-center gap-5 p-2'>
             <img
               src='https://play-lh.googleusercontent.com/yPtnkXQAn6yEahOurxuYZL576FDXWn3CqewVcEWJsXlega_nSiavBvmaXwfTGktGlQ'
@@ -69,13 +77,13 @@ export default function AppCard({ title, details, saha, id, item }) {
               height={50}
             />
             <div>
-              <h5>Korsan Restaurant</h5>
-              <p className='text-xs'>Saha Sorumlusu:süleyman özdemir</p>
+              <h5>{projectName}</h5>
+              <p className='text-xs'>Saha Sorumlusu:{fieldManager}</p>
             </div>
           </div>
 
           <div className='w-auto h-20 p-1'>
-            <p className='p-3'>iç dizayn tasarım imalat ve uygulama</p>
+            <p className='p-3'>{description}</p>
           </div>
 
           <div className='w-[250px] flex items-center justify-between flex-wrap'>

@@ -3,13 +3,23 @@ import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { updateTask } from "../../redux/features/taskAction"
 
-const AddEditTask = ({ open, setOpen }) => {
+const AddEditTask = ({ open, setOpen, tasks }) => {
+  const [updateData, setUpdateData] = useState({})
+  const dispatch = useDispatch()
+
+  const newData = (e) => {
+    setUpdateData({ ...updateData, [e.target.name]: e.target.value })
+  }
   const handleClose = () => {
     setOpen(false)
   }
   const handleSubmit = (e) => {
     e.preventDefault()
+    dispatch(updateTask(updateData))
   }
   return (
     <div>
@@ -23,8 +33,8 @@ const AddEditTask = ({ open, setOpen }) => {
               <Stack spacing={3} direction='column'>
                 <TextField
                   name='projectName'
-                  // value={formData.projectName}
-                  // onChange={handleInputChange}
+                  value={updateTask || tasks.projectName}
+                  onChange={newData}
                   variant='outlined'
                   label='Project Name'
                 />
