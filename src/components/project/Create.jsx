@@ -37,18 +37,15 @@ export default function Create({ id }) {
       starTime: new Date(),
       endTime: new Date(),
     })
-    // const daysDiff = formData.endDate.getTime() - formData.startDate.getTime()
-    // const days = Math.ceil(daysDiff / (1000 * 60 * 60 * 24))
-    // console.log(days)
   }
   const handleInputChange = (e) => {
     const { name, value } = e.target
+    console.log(name, value)
     setFormData({
       ...formData,
       [name]: value,
     })
   }
-
   return (
     <div>
       <Paper>
@@ -60,7 +57,7 @@ export default function Create({ id }) {
             <span>Tasks Ekle</span>
           </DialogTitle>
           <DialogContent>
-            <form onSubmit={handleSubmit}>
+            <form method='post' onSubmit={handleSubmit}>
               <Stack spacing={3} direction='column'>
                 <TextField
                   name='projectName'
@@ -94,7 +91,7 @@ export default function Create({ id }) {
                   onChange={handleInputChange}
                   type='datetime-local'
                   InputProps={{ style: { borderRadius: "10px" } }}
-                  format='DD-MM-YYYY'
+                  format='YYYY-MM-DDTHH:mm'
                 />
                 <TextField
                   className='p-3 border-2'
@@ -104,7 +101,7 @@ export default function Create({ id }) {
                   onChange={handleInputChange}
                   type='datetime-local'
                   InputProps={{ style: { borderRadius: "10px" } }}
-                  format='DD-MM-YYYY'
+                  format='YYYY-MM-DDTHH:mm'
                 />
 
                 <Button type='submit' variant='contained' onClick={handleClose}>

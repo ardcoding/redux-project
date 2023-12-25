@@ -4,12 +4,22 @@ import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { updateTask } from "../../redux/features/taskAction"
 
-const AddEditTask = ({ open, setOpen, tasks }) => {
-  const [updateData, setUpdateData] = useState({})
+const AddEditTask = ({ open, setOpen, task }) => {
+  const [updateData, setUpdateData] = useState({
+    projectName: task.projectName,
+    description: task.description,
+    fieldManager: task.fieldManager,
+    startTime: task.startTime,
+    endTime: task.endTime,
+  })
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(updateTask())
+  }, [dispatch])
 
   const newData = (e) => {
     setUpdateData({ ...updateData, [e.target.name]: e.target.value })
@@ -19,7 +29,8 @@ const AddEditTask = ({ open, setOpen, tasks }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(updateTask(updateData))
+    console.log(updateData)
+    dispatch(updateTask(task.id, { ...updateData, id: task.id }))
   }
   return (
     <div>
@@ -33,15 +44,15 @@ const AddEditTask = ({ open, setOpen, tasks }) => {
               <Stack spacing={3} direction='column'>
                 <TextField
                   name='projectName'
-                  value={updateTask || tasks.projectName}
+                  value={updateData.projectName}
                   onChange={newData}
                   variant='outlined'
                   label='Project Name'
                 />
                 <TextField
                   name='fieldManager'
-                  // value={formData.fieldManager}
-                  // onChange={handleInputChange}
+                  value={updateData.fieldManager}
+                  onChange={newData}
                   variant='outlined'
                   label='Saha Sorumlusu'
                 />
@@ -50,16 +61,16 @@ const AddEditTask = ({ open, setOpen, tasks }) => {
                   maxRows={2}
                   minRows={2}
                   name='description'
-                  // value={formData.description}
-                  // onChange={handleInputChange}
+                  value={updateData.description}
+                  onChange={newData}
                   variant='outlined'
                   label='Project Details'
                 />
                 <TextField
                   className='p-3 border-2'
                   name='starTime'
-                  // value={formData.starTime}
-                  // onChange={handleInputChange}
+                  value={updateData.startTime}
+                  onChange={newData}
                   type='datetime-local'
                   InputProps={{ style: { borderRadius: "10px" } }}
                   format='DD-MM-YYYY'
@@ -67,14 +78,14 @@ const AddEditTask = ({ open, setOpen, tasks }) => {
                 <TextField
                   className='p-3 border-2'
                   name='endTime'
-                  // value={formData.endTime}
-                  // onChange={handleInputChange}
+                  value={updateData.endTime}
+                  onChange={newData}
                   type='datetime-local'
                   InputProps={{ style: { borderRadius: "10px" } }}
                   format='DD-MM-YYYY'
                 />
 
-                <Button type='submit' variant='contained' onClick={handleClose}>
+                <Button type='submit' variant='contained'>
                   Ekle
                 </Button>
               </Stack>

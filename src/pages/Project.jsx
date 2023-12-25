@@ -1,4 +1,3 @@
-import React from "react"
 import AppHeader from "../components/project/AppHeader"
 import AppCard from "../components/project/AppCard"
 import { useDispatch, useSelector } from "react-redux"
@@ -7,7 +6,6 @@ import { getTasks } from "../redux/features/taskAction"
 
 export default function Project() {
   const tasks = useSelector((state) => state.task.tasks)
-  console.log(tasks)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getTasks())
@@ -16,7 +14,8 @@ export default function Project() {
     <div>
       <AppHeader />
       <div className='flex items-center flex-wrap -ml-4'>
-        {tasks && tasks.map((item, i) => <AppCard key={i} {...item} />)}
+        {tasks &&
+          tasks.map((item, i) => <AppCard key={i} task={item} {...item} />)}
       </div>
     </div>
   )
