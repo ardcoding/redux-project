@@ -1,28 +1,40 @@
-import { Paper, Stack, TextField } from "@mui/material"
+import { Avatar, MenuList, Paper, Stack, TextField } from "@mui/material"
 import Button from "@mui/material/Button"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { createTask } from "../../redux/features/taskAction"
+import InputFileUpload from "./uploadFile"
 
 export default function Create({ id }) {
+  const [anchorEl, setAnchorEl] = useState(null)
+  const openMenu = Boolean(anchorEl)
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     projectName: "",
+    avatar: "",
     description: "",
     fieldManager: "",
     starTime: new Date(),
     endTime: new Date(),
   })
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
   const handleClickOpen = () => {
     setOpen(true)
   }
 
-  const handleClose = () => {
+  const handleCloseClick = () => {
     setOpen(false)
   }
 
@@ -32,6 +44,7 @@ export default function Create({ id }) {
     console.log(formData)
     setFormData({
       projectName: "",
+      avatar: "",
       description: "",
       fieldManager: "",
       starTime: new Date(),
@@ -46,13 +59,19 @@ export default function Create({ id }) {
       [name]: value,
     })
   }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    console.log(file)
+  }
+
   return (
     <div>
       <Paper>
         <Button variant='contained' onClick={handleClickOpen}>
           Ekle
         </Button>
-        <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+        <Dialog open={open} onClose={handleCloseClick} fullWidth maxWidth='sm'>
           <DialogTitle>
             <span>Tasks Ekle</span>
           </DialogTitle>
@@ -103,6 +122,51 @@ export default function Create({ id }) {
                   InputProps={{ style: { borderRadius: "10px" } }}
                   format='YYYY-MM-DDTHH:mm'
                 />
+
+                <button
+                  className='rounded-full w-max self-center'
+                  id='basic-button'
+                  aria-controls={openMenu ? "basic-menu" : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={openMenu ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <Avatar
+                    htmlFor='file-upload'
+                    src={formData.avatar}
+                    alt=''
+                    sx={{
+                      width: 120,
+                      height: 120,
+                    }}
+                  />
+                </button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                  sx={{
+                    "&.MuiMenu-paper": {
+                      borderRadius: "100px",
+                      backgroundColor: "red",
+                    },
+                  }}
+                >
+                  <MenuList>
+                    <MenuItem htmlFor='file-upload' onClick={handleClose}>
+                      <InputFileUpload
+                        name='avatar'
+                        id='file-upload'
+                        onChange={handleFileChange}
+                      />
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>Fotoğraf Sil</MenuItem>
+                  </MenuList>
+                </Menu>
 
                 <Button type='submit' variant='contained' onClick={handleClose}>
                   Ekle

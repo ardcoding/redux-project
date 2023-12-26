@@ -13,6 +13,7 @@ export default function Project() {
   return (
     <div>
       <AppHeader />
+      <AppCard />
       <div className='flex items-center flex-wrap -ml-4'>
         {tasks &&
           tasks.map((item, i) => <AppCard key={i} task={item} {...item} />)}
