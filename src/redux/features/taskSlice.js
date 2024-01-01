@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createTask, getTask, getTasks } from "./taskAction"
+import {
+  createTask,
+  deleteTask,
+  getTask,
+  getTasks,
+  updateTask,
+} from "./taskAction"
 
 const taskSlice = createSlice({
   name: "task",
   initialState: {
     task: {},
     tasks: [],
-    userTasks: [],
     loading: false,
     error: null,
   },
@@ -28,6 +33,7 @@ const taskSlice = createSlice({
     builder.addCase(getTasks.fulfilled, (state, action) => {
       state.loading = false
       state.tasks = action.payload
+      console.log(state.tasks)
     })
     builder.addCase(getTasks.rejected, (state, action) => {
       state.loading = false
@@ -41,6 +47,30 @@ const taskSlice = createSlice({
       state.tasks = action.payload
     })
     builder.addCase(getTask.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    builder.addCase(deleteTask.pending, (state, action) => {
+      state.loading = true
+    })
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    builder.addCase(deleteTask.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    builder.addCase(updateTask.pending, (state, action) => {
+      state.loading = true
+    })
+    builder.addCase(updateTask.fulfilled, (state, action) => {
+      state.loading = false
+      state.tasks = state.tasks.map((element) =>
+        element.id === action.payload.id ? action.payload : element
+      )
+    })
+    builder.addCase(updateTask.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload
     })
