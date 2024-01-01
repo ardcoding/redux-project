@@ -1,19 +1,31 @@
 import { Avatar, MenuList, Paper, Stack, TextField } from "@mui/material"
 import Button from "@mui/material/Button"
-import Menu from "@mui/material/Menu"
-import MenuItem from "@mui/material/MenuItem"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
+import { styled } from "@mui/material/styles"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { createTask } from "../../redux/features/taskAction"
-import InputFileUpload from "./uploadFile"
 
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+})
 export default function Create({ id }) {
   const [anchorEl, setAnchorEl] = useState(null)
   const openMenu = Boolean(anchorEl)
   const [open, setOpen] = useState(false)
+  const [avatar, setAvatar] = useState("")
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     projectName: "",
@@ -41,16 +53,18 @@ export default function Create({ id }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createTask(formData))
-    console.log(formData)
     setFormData({
       projectName: "",
-      avatar: "",
+      avatar: avatar,
       description: "",
       fieldManager: "",
       starTime: new Date(),
       endTime: new Date(),
     })
+    setAvatar(null)
   }
+  console.log(formData)
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     console.log(name, value)
@@ -60,9 +74,16 @@ export default function Create({ id }) {
     })
   }
 
-  const handleFileChange = (e) => {
+  const handleFileUpload = (e) => {
     const file = e.target.files[0]
-    console.log(file)
+    setAvatar(file ? URL.createObjectURL(file) : null)
+    // const reader = new FileReader()
+    // reader.onload = () => {
+    //   setAvatar(reader.result)
+    // }
+    // if (file) {
+    //   reader.readAsDataURL(file)
+    // }
   }
 
   return (
@@ -122,25 +143,21 @@ export default function Create({ id }) {
                   InputProps={{ style: { borderRadius: "10px" } }}
                   format='YYYY-MM-DDTHH:mm'
                 />
-
-                <button
-                  className='rounded-full w-max self-center'
+                <Button
                   id='basic-button'
-                  aria-controls={openMenu ? "basic-menu" : undefined}
+                  aria-controls={open ? "basic-menu" : undefined}
                   aria-haspopup='true'
-                  aria-expanded={openMenu ? "true" : undefined}
+                  aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
                 >
                   <Avatar
-                    htmlFor='file-upload'
-                    src={formData.avatar}
-                    alt=''
+                    src={avatar}
                     sx={{
                       width: 120,
                       height: 120,
                     }}
                   />
-                </button>
+                </Button>
                 <Menu
                   id='basic-menu'
                   anchorEl={anchorEl}
@@ -149,26 +166,25 @@ export default function Create({ id }) {
                   MenuListProps={{
                     "aria-labelledby": "basic-button",
                   }}
-                  sx={{
-                    "&.MuiMenu-paper": {
-                      borderRadius: "100px",
-                      backgroundColor: "red",
-                    },
-                  }}
                 >
                   <MenuList>
-                    <MenuItem htmlFor='file-upload' onClick={handleClose}>
-                      <InputFileUpload
-                        name='avatar'
-                        id='file-upload'
-                        onChange={handleFileChange}
-                      />
+                    <MenuItem onClick={handleClose}>
+                      <label htmlFor='file-upload'>Upload file</label>{" "}
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>Fotoğraf Sil</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
                   </MenuList>
                 </Menu>
-
-                <Button type='submit' variant='contained' onClick={handleClose}>
+                <VisuallyHiddenInput
+                  type='file'
+                  name='avatar'
+                  onChange={handleFileUpload}
+                  id='file-upload'
+                />
+                <Button
+                  type='submit'
+                  variant='contained'
+                  onClick={handleCloseClick}
+                >
                   Ekle
                 </Button>
               </Stack>

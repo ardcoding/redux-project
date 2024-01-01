@@ -1,0 +1,112 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "projectName": "Project 1",
+      "fieldManager": "John Doe",
+      "description": "Description for Project 1",
+      "starTime": "2023-01-01T08:00",
+      "endTime": "2023-01-05T17:00",
+      "avatar": "https://example.com/avatar1.jpg"
+    },
+    {
+      "id": 2,
+      "projectName": "Project 2",
+      "fieldManager": "Jane Doe",
+      "description": "Description for Project 2",
+      "starTime": "2023-01-10T09:30",
+      "endTime": "2023-01-15T18:30",
+      "avatar": "https://example.com/avatar2.jpg"
+    },
+    {
+      "id": 3,
+      "projectName": "Project 3",
+      "fieldManager": "Bob Smith",
+      "description": "Description for Project 3",
+      "starTime": "2023-02-05T11:00",
+      "endTime": "2023-02-10T20:00",
+      "avatar": "https://example.com/avatar3.jpg"
+    },
+    {
+      "id": 4,
+      "projectName": "Project 4",
+      "fieldManager": "Alice Johnson",
+      "description": "Description for Project 4",
+      "starTime": "2023-02-15T13:45",
+      "endTime": "2023-02-20T22:45",
+      "avatar": "https://example.com/avatar4.jpg"
+    },
+    {
+      "id": 5,
+      "projectName": "Project 5",
+      "fieldManager": "Charlie Brown",
+      "description": "Description for Project 5",
+      "starTime": "2023-03-01T14:30",
+      "endTime": "2023-03-05T23:30",
+      "avatar": "https://example.com/avatar5.jpg"
+    },
+    {
+      "id": 6,
+      "projectName": "Project 6",
+      "fieldManager": "Eva Green",
+      "description": "Description for Project 6",
+      "starTime": "2023-03-10T16:15",
+      "endTime": "2023-03-15T01:15",
+      "avatar": "https://example.com/avatar6.jpg"
+    },
+    {
+      "id": 7,
+      "projectName": "Project 7",
+      "fieldManager": "David Wilson",
+      "description": "Description for Project 7",
+      "starTime": "2023-04-05T18:00",
+      "endTime": "2023-04-10T03:00",
+      "avatar": "https://example.com/avatar7.jpg"
+    },
+    {
+      "id": 8,
+      "projectName": "Project 8",
+      "fieldManager": "Grace Turner",
+      "description": "Description for Project 8",
+      "starTime": "2023-04-15T20:45",
+      "endTime": "2023-04-20T05:45",
+      "avatar": "https://example.com/avatar8.jpg"
+    },
+    {
+      "id": 9,
+      "projectName": "Project 9",
+      "fieldManager": "Frank Miller",
+      "description": "Description for Project 9",
+      "starTime": "2023-05-01T22:30",
+      "endTime": "2023-05-05T09:30",
+      "avatar": "https://example.com/avatar9.jpg"
+    },
+    {
+      "id": 10,
+      "projectName": "Project 10",
+      "fieldManager": "Helen White",
+      "description": "Description for Project 10",
+      "starTime": "2023-05-10T00:15",
+      "endTime": "2023-05-15T11:15",
+      "avatar": "https://example.com/avatar10.jpg"
+    }
+  ]
+}
+
+
+{/*
+Endpoint: GET http://localhost:3001/tasks
+API function: fetchTasks
+Create a new task:
+
+Endpoint: POST http://localhost:3001/tasks
+API function: createTask
+Update an existing task:
+
+Endpoint: PUT http://localhost:3001/tasks/:id (Replace :id with the actual task ID)
+API function: updateTask
+Delete a task:
+
+Endpoint: DELETE http://localhost:3001/tasks/:id (Replace :id with the actual task ID)
+API function: deleteTask
+*/}

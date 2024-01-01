@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar"
 import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import SingleTask from "./pages/SingleTask"
+import SignUp from "./pages/SignUp"
 
 function App() {
   const Layout = () => {
@@ -39,6 +40,16 @@ function App() {
             },
           ],
         },
+      ],
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+      children: [
+        // {
+        //   path: "/login",
+        //   element: <Login />,
+        // },
       ],
     },
   ])
